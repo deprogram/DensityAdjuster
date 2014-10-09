@@ -39,41 +39,43 @@ public class MainActivity extends Activity {
         }
 
         Button tryNewDensity = (Button)findViewById(R.id.buttonTryNewDensity);
-        tryNewDensity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), TryNewDensityActivity.class));
-            }
-        });
         if (!SystemLayer.hasSuperUser()) {
             // we can't set densities
             Toast.makeText(this, "No superuser binary found, can't set new density.", Toast.LENGTH_LONG).show();
             tryNewDensity.setEnabled(false);
+        } else {
+            tryNewDensity.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(getApplicationContext(), TryNewDensityActivity.class));
+                }
+            });
         }
 
-        Button saveCurrentDensity = (Button)findViewById(R.id.buttonPersistExistingDensity);
+        final Button saveCurrentDensity = (Button)findViewById(R.id.buttonPersistExistingDensity);
         if (!currentDensity.equals(savedDensity)) {
             saveCurrentDensity.setVisibility(View.VISIBLE);
 
             saveCurrentDensity.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    persistCurrentDensity(currentDensity, savedDensity);
+                    persistCurrentDensity(currentDensity);
 
                     final String savedDensity = SystemLayer.getDensityFromBuildProps();
                     if (savedDensity != null) {
                         TextView tv = (TextView)findViewById(R.id.textSavedDensity);
                         tv.setText(savedDensity);
                     }
-                    findViewById(R.id.buttonPersistExistingDensity).setVisibility(View.GONE);
+                    saveCurrentDensity.setVisibility(View.GONE);
                 }
             });
         }
     }
 
-    private void persistCurrentDensity(String currentDensity, String existingDensity) {
+    private void persistCurrentDensity(String currentDensity) {
         String appDataDir = getApplicationInfo().dataDir;
-        FileController.createNewBuildProps(appDataDir, existingDensity, currentDensity);
+
+        FileController.createNewBuildProps(appDataDir, currentDensity);
         SystemLayer.mountSystemReadWrite();
         FileController.copyNewBuildPropsIntoSystem(appDataDir);
         SystemLayer.mountSystemReadOnly();

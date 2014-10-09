@@ -7,9 +7,11 @@ import java.util.Date;
  */
 public class PathHelper {
     public static final String PATH_BUILD_PROP = "/system/build.prop";
-    public static final String PATH_RESTORE_SCRIPT = "/etc/init.d/99restorebuildprop";
-    public static final String PATH_SU_BINARY = "/system/bin/su";
     public static final String PATH_BUILD_PROP_BACKUP = PATH_BUILD_PROP + ".original";
+    public static final String PATH_RESTORE_SCRIPT = "/etc/install-recovery.sh";
+    public static final String PATH_RESTORE_SCRIPT_BACKUP = PATH_RESTORE_SCRIPT + ".original";
+    public static final String PATH_SU_BINARY = "/system/bin/su";
+
 
     public static String buildPropertiesBackupPath(String appDataDir) {
         return appDataDir + "/build.prop";
@@ -22,6 +24,6 @@ public class PathHelper {
     }
 
     public static String buildRestoreScriptSourcePath(String dataDir) {
-        return dataDir + "/99restorebuildprop";
+        return dataDir + "/install-recovery.sh";
     }
 }

@@ -5,7 +5,6 @@ import android.util.Log;
 import com.oumugai.densityadjuster.Utils.Files;
 import com.oumugai.densityadjuster.Utils.SystemLayer;
 
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -28,12 +27,14 @@ public class FileController {
         }
     }
 
-    public static boolean createNewBuildProps(String dataDir, String currentDensity, String newDensity) {
+    public static boolean createNewBuildProps(String dataDir, String newDensity) {
         try {
+            // TODO: we don't really need to read twice
             String buildProperties = Files.convertFileToString(PathHelper.PATH_BUILD_PROP);
             Log.d(TAG, "read build props: " + buildProperties);
+            String savedDensity = SystemLayer.getDensityFromBuildProps();
 
-            String currentSetting = SystemLayer.SYSTEM_PROPERTY_LCD_DENSITY + "=" + currentDensity;
+            String currentSetting = SystemLayer.SYSTEM_PROPERTY_LCD_DENSITY + "=" + savedDensity;
             String newSetting = SystemLayer.SYSTEM_PROPERTY_LCD_DENSITY + "=" + newDensity;
 
             String newBuildProperties = buildProperties.replace(currentSetting, newSetting);
@@ -55,7 +56,9 @@ public class FileController {
         restoreScript += "mount -o rw,remount " + blockDevice + " /system" + "\n";
         restoreScript += "mv " + PathHelper.PATH_BUILD_PROP_BACKUP + " " + PathHelper.PATH_BUILD_PROP + "\n";
         restoreScript += "rm " + PathHelper.PATH_RESTORE_SCRIPT + "\n";
+        restoreScript += "mv " + PathHelper.PATH_RESTORE_SCRIPT_BACKUP + " " + PathHelper.PATH_RESTORE_SCRIPT + "\n";
         restoreScript += "mount -o ro,remount " + blockDevice + " /system" + "\n";
+        restoreScript += PathHelper.PATH_RESTORE_SCRIPT + "\n";
 
         try {
             Files.writeStringToFile(restoreScript, PathHelper.buildRestoreScriptSourcePath(dataDir));
@@ -66,14 +69,12 @@ public class FileController {
         }
     }
 
-    public static void copyRestoreScriptIntoInitD(String dataDir) throws Exception {
+    public static void copyRecoveryScriptIntoEtc(String dataDir) {
+        String moveExistingRecoveryScript = "mv " + PathHelper.PATH_RESTORE_SCRIPT + " " + PathHelper.PATH_RESTORE_SCRIPT_BACKUP;
+        SystemLayer.executeCommandAsSuperUser(moveExistingRecoveryScript);
+
         String copyRestoreScriptCommand = "cp " + PathHelper.buildRestoreScriptSourcePath(dataDir) + " " + PathHelper.PATH_RESTORE_SCRIPT;
         SystemLayer.executeCommandAsSuperUser(copyRestoreScriptCommand);
-        // let's be ultra paranoid
-        File restoreScript = new File(PathHelper.PATH_RESTORE_SCRIPT);
-        if (!restoreScript.exists()) {
-            throw new Exception("failed to copy restore script!");
-        }
         SystemLayer.executeCommandAsSuperUser("chmod 755 " + PathHelper.PATH_RESTORE_SCRIPT);
     }
 
