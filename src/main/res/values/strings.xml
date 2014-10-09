@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">DPI Adjuster</string>
+    <string name="current_density">Current Density:</string>
+    <string name="saved_density">Saved Density:</string>
+    <string name="title_activity_reboot_device">RebootDeviceActivity</string>
+    <string name="reboot_instructions">Your new density is ready to test. If you experience any
+    display issues or instability, simply reboot! Your original settings will be restored.
+
+    If you like the new setting and want to keep it, come back here and store the density
+    permanently, otherwise it will be lost upon reboot.</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
