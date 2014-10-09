@@ -5,6 +5,7 @@ import android.util.Log;
 import com.oumugai.densityadjuster.Utils.Files;
 import com.oumugai.densityadjuster.Utils.SystemLayer;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -47,7 +48,12 @@ public class FileController {
         }
     }
 
-    public static boolean generateRestoreScript(String dataDir) {
+    public static void generateRestoreScripts(String dataDir) {
+        generateInitRestoreScript(dataDir);
+        generateRecoveryRestoreScript(dataDir);
+    }
+
+    public static boolean generateRecoveryRestoreScript(String dataDir) {
         String blockDevice = SystemLayer.getSystemBlockDevice();
 
         String restoreScript = "";
@@ -61,7 +67,7 @@ public class FileController {
         restoreScript += PathHelper.PATH_RESTORE_SCRIPT + "\n";
 
         try {
-            Files.writeStringToFile(restoreScript, PathHelper.buildRestoreScriptSourcePath(dataDir));
+            Files.writeStringToFile(restoreScript, PathHelper.buildRestoreRecoveryScriptSourcePath(dataDir));
             return true;
         } catch (IOException e) {
             Log.e(TAG, "generateRestoreScript() threw: " + e, e);
@@ -69,13 +75,38 @@ public class FileController {
         }
     }
 
-    public static void copyRecoveryScriptIntoEtc(String dataDir) {
+    public static boolean generateInitRestoreScript(String dataDir) {
+        String blockDevice = SystemLayer.getSystemBlockDevice();
+
+        String restoreScript = "";
+        restoreScript += "#!/system/bin/sh" + "\n";
+        restoreScript += "" + "\n";
+        restoreScript += "mount -o rw,remount " + blockDevice + " /system" + "\n";
+        restoreScript += "mv " + PathHelper.PATH_BUILD_PROP_BACKUP + " " + PathHelper.PATH_BUILD_PROP + "\n";
+        restoreScript += "rm " + PathHelper.PATH_RESTORE_INIT_SCRIPT + "\n";
+        restoreScript += "mount -o ro,remount " + blockDevice + " /system" + "\n";
+
+        try {
+            Files.writeStringToFile(restoreScript, PathHelper.buildRestoreInitScriptSourcePath(dataDir));
+            return true;
+        } catch (IOException e) {
+            Log.e(TAG, "generateRestoreScript() threw: " + e, e);
+            return false;
+        }
+    }
+
+    private static void copyRecoveryScriptIntoEtc(String dataDir) {
         String moveExistingRecoveryScript = "mv " + PathHelper.PATH_RESTORE_SCRIPT + " " + PathHelper.PATH_RESTORE_SCRIPT_BACKUP;
         SystemLayer.executeCommandAsSuperUser(moveExistingRecoveryScript);
 
-        String copyRestoreScriptCommand = "cp " + PathHelper.buildRestoreScriptSourcePath(dataDir) + " " + PathHelper.PATH_RESTORE_SCRIPT;
+        String copyRestoreScriptCommand = "cp " + PathHelper.buildRestoreRecoveryScriptSourcePath(dataDir) + " " + PathHelper.PATH_RESTORE_SCRIPT;
         SystemLayer.executeCommandAsSuperUser(copyRestoreScriptCommand);
         SystemLayer.executeCommandAsSuperUser("chmod 755 " + PathHelper.PATH_RESTORE_SCRIPT);
+    }
+    private static void copyRestoreScriptIntoInitD(String dataDir) {
+        String copyRestoreScriptCommand = "cp " + PathHelper.buildRestoreInitScriptSourcePath(dataDir) + " " + PathHelper.PATH_RESTORE_INIT_SCRIPT;
+        SystemLayer.executeCommandAsSuperUser(copyRestoreScriptCommand);
+        SystemLayer.executeCommandAsSuperUser("chmod 755 " + PathHelper.PATH_RESTORE_INIT_SCRIPT);
     }
 
     public static void copyNewBuildPropsIntoSystem(String dataDir) {
@@ -87,4 +118,15 @@ public class FileController {
 
         SystemLayer.executeCommandAsSuperUser("chmod 644 " + PathHelper.PATH_BUILD_PROP);
     }
+
+
+    public static void copyRecoveryScript(String dataDir) {
+        if (new File("/etc/init.d").exists()) {
+            copyRestoreScriptIntoInitD(dataDir);
+        } else {
+            copyRecoveryScriptIntoEtc(dataDir);
+        }
+    }
+
+
 }

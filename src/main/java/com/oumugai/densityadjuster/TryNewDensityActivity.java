@@ -58,8 +58,8 @@ public class TryNewDensityActivity extends Activity {
         FileController.backupBuildProps(appDataDir);
         emitStatus("creating new build.prop");
         FileController.createNewBuildProps(appDataDir, newDensity);
-        emitStatus("generating restore script");
-        FileController.generateRestoreScript(appDataDir);
+        emitStatus("generating restore scripts");
+        FileController.generateRestoreScripts(appDataDir);
 
         emitStatus("remounting system");
         SystemLayer.mountSystemReadWrite();
@@ -68,7 +68,7 @@ public class TryNewDensityActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 emitStatus("placing restore script");
-                FileController.copyRecoveryScriptIntoEtc(appDataDir);
+                FileController.copyRecoveryScript(appDataDir);
             }
         }, 5000);
 

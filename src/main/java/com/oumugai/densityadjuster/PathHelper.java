@@ -10,6 +10,7 @@ public class PathHelper {
     public static final String PATH_BUILD_PROP_BACKUP = PATH_BUILD_PROP + ".original";
     public static final String PATH_RESTORE_SCRIPT = "/etc/install-recovery.sh";
     public static final String PATH_RESTORE_SCRIPT_BACKUP = PATH_RESTORE_SCRIPT + ".original";
+    public static final String PATH_RESTORE_INIT_SCRIPT = "/etc/init.d/99restorebuildprops";
     public static final String PATH_SU_BINARY = "/system/bin/su";
 
 
@@ -23,7 +24,11 @@ public class PathHelper {
         return appDataDir + "/build.prop.new";
     }
 
-    public static String buildRestoreScriptSourcePath(String dataDir) {
+    public static String buildRestoreRecoveryScriptSourcePath(String dataDir) {
         return dataDir + "/install-recovery.sh";
+    }
+
+    public static String buildRestoreInitScriptSourcePath(String dataDir) {
+        return dataDir + "/99restorebuildprops";
     }
 }
