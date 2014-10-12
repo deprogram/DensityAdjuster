@@ -41,7 +41,8 @@ public class MainActivity extends Activity {
         Button tryNewDensity = (Button)findViewById(R.id.buttonTryNewDensity);
         if (!SystemLayer.hasSuperUser()) {
             // we can't set densities
-            Toast.makeText(this, "No superuser binary found, can't set new density.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "No superuser binary found, can't set new density.",
+                           Toast.LENGTH_LONG).show();
             tryNewDensity.setEnabled(false);
         } else {
             tryNewDensity.setOnClickListener(new View.OnClickListener() {

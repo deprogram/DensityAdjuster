@@ -121,7 +121,7 @@ public class FileController {
 
 
     public static void copyRecoveryScript(String dataDir) {
-        if (new File("/etc/init.d").exists()) {
+        if (SystemLayer.hasInitDSupport()) {
             copyRestoreScriptIntoInitD(dataDir);
         } else {
             copyRecoveryScriptIntoEtc(dataDir);

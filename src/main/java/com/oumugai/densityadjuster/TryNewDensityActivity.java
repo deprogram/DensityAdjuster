@@ -75,7 +75,7 @@ public class TryNewDensityActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 // let's be ultra paranoid
-                File restoreScript = new File(PathHelper.PATH_RESTORE_SCRIPT);
+                File restoreScript = new File(PathHelper.getRestoreScriptPath());
                 if (!restoreScript.exists()) {
                     emitStatus("failed to copy restore script!");
                     emitStatus("aborting...");
@@ -89,8 +89,6 @@ public class TryNewDensityActivity extends Activity {
                 startActivity(intent);
             }
         }, 6000);
-
-
     }
 
     private void emitStatus(String status) {

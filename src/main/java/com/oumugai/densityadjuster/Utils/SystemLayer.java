@@ -64,8 +64,7 @@ public class SystemLayer {
     }
 
     public static boolean hasSuperUser() {
-        File superUserFile = new File(PathHelper.PATH_SU_BINARY);
-        return superUserFile.exists();
+        return PathHelper.PATH_SU_BINARY != null;
     }
 
     public static boolean executeCommandAsSuperUser(String command) {
@@ -97,5 +96,9 @@ public class SystemLayer {
             }
         }
         return null;
+    }
+
+    public static boolean hasInitDSupport() {
+        return new File("/etc/init.d").exists();
     }
 }
