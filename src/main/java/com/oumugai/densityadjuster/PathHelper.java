@@ -3,6 +3,7 @@ package com.oumugai.densityadjuster;
 import com.oumugai.densityadjuster.Utils.SystemLayer;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 
 /**
@@ -17,14 +18,30 @@ public class PathHelper {
     public static final String PATH_SU_BINARY = getSuperUserPath();  // hmmm static initializers?
 
     public static String getSuperUserPath() {
-        if (new File("/system/bin/su").exists()) {
+        if (fileExistsAtLocation("/system/bin/su")) {
             return "/system/bin/su";
         }
-        if (new File("/system/xbin/su").exists()) {
+        if (fileExistsAtLocation("/system/xbin/su")) {
             return  "/system/xbin/su";
         }
         return null;
     }
+
+    private static boolean fileExistsAtLocation(String path) {
+        File target = new File(path);
+        if (!target.exists()) {
+            return false;
+        }
+        try {
+            if (isSymlink(target)) {
+                return false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
 
     public static String getRestoreScriptPath() {
         return SystemLayer.hasInitDSupport() ? PATH_RESTORE_INIT_SCRIPT : PATH_RESTORE_SCRIPT;
@@ -46,5 +63,16 @@ public class PathHelper {
 
     public static String buildRestoreInitScriptSourcePath(String dataDir) {
         return dataDir + "/99restorebuildprops";
+    }
+
+    public static boolean isSymlink(File file) throws IOException {
+        File canon;
+        if (file.getParent() == null) {
+            canon = file;
+        } else {
+            File canonDir = file.getParentFile().getCanonicalFile();
+            canon = new File(canonDir, file.getName());
+        }
+        return !canon.getCanonicalFile().equals(canon.getAbsoluteFile());
     }
 }

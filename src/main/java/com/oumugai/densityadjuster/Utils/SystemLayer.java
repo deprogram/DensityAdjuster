@@ -69,8 +69,9 @@ public class SystemLayer {
 
     public static boolean executeCommandAsSuperUser(String command) {
         try {
-            Log.d(TAG, "executing command as superuser: " + command);
-            Runtime.getRuntime().exec(new String[]{PathHelper.PATH_SU_BINARY, "-c", command}).waitFor();
+            Log.d(TAG, "executing command: " + command);
+            Runtime.getRuntime().exec("su"); // ok, on slim rom the first su call was failing
+            Runtime.getRuntime().exec(new String[]{"su", "-c", command});
             return true;
         } catch (Exception e) {
             Log.e(TAG, "executeCommandAsSuperUser() failed for command " + command + ": " + e, e);
