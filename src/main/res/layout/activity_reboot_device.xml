@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="250dp"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true">
@@ -19,13 +19,23 @@
             android:layout_height="wrap_content"
             android:textSize="20sp" />
 
+        <TextView
+            android:text="@string/reboot_instructions2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:id="@+id/textView"
+            android:textStyle="bold"
+            android:paddingTop="25dp" />
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="Reboot Now"
             android:id="@+id/buttonReboot"
-            android:layout_marginTop="35dp" />
+            android:layout_marginTop="35dp"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </RelativeLayout>

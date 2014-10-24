@@ -7,16 +7,25 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="150dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/current_density"/>
+            android:text="@string/current_density"
+            android:background="#222"
+            android:textColor="#fff"
+            android:layout_marginBottom="-55dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"
+            android:autoText="true"
+            android:alpha=".5" />
 
         <TextView
             android:layout_width="fill_parent"
@@ -24,16 +33,24 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="000"
             android:id="@+id/textCurrentDensity"
-            android:textSize="80sp"
+            android:textSize="120sp"
             android:gravity="right"
             android:textStyle="bold"
-            android:textColor="#fff" />
+            android:textColor="#fff"
+            android:alpha=".7" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Saved Density:"/>
+            android:text="Saved Density:"
+            android:background="#222"
+            android:textColor="#fff"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"
+            android:alpha=".5" />
 
         <TextView
             android:layout_width="fill_parent"
@@ -43,21 +60,24 @@
             android:id="@+id/textSavedDensity"
             android:textSize="50sp"
             android:gravity="right"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_marginTop="-25dp"
+            android:textColor="#fff"
+            android:layout_marginBottom="25dp" />
 
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Save Current Density"
-            android:visibility="gone"
             android:id="@+id/buttonPersistExistingDensity"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Try New Density"
+            android:text="Try A New Density"
             android:id="@+id/buttonTryNewDensity"
             android:textStyle="bold" />
 
