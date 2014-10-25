@@ -8,8 +8,8 @@ android {
         applicationId "com.oumugai.densityadjuster"
         minSdkVersion 13
         targetSdkVersion 20
-        versionCode 3
-        versionName "0.05"
+        versionCode 4
+        versionName "0.06"
     }
     buildTypes {
         release {

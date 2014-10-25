@@ -46,12 +46,12 @@ public class TryNewDensityActivity extends Activity {
                     return;
                 }
                 view.setEnabled(false);
-                tryNewDensity(newDensity);
+                tryNewDensity(Integer.valueOf(newDensity));
             }
         });
     }
 
-    private void tryNewDensity(String newDensity) {
+    private void tryNewDensity(int newDensity) {
         final String appDataDir = getApplicationInfo().dataDir;
 
         emitStatus("backing up existing build.prop");

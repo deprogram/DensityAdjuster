@@ -47,7 +47,7 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="250dp"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true">
@@ -73,7 +73,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="000"
             android:id="@+id/textCurrentDensity"
-            android:textSize="120sp"
+            android:textSize="150sp"
             android:gravity="right"
             android:textStyle="bold"
             android:textColor="#fff"
@@ -98,7 +98,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="000"
             android:id="@+id/textSavedDensity"
-            android:textSize="50sp"
+            android:textSize="75sp"
             android:gravity="right"
             android:textStyle="bold"
             android:layout_marginTop="-25dp"

@@ -5,7 +5,6 @@ import android.util.Log;
 import com.oumugai.densityadjuster.Utils.Files;
 import com.oumugai.densityadjuster.Utils.SystemLayer;
 
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -28,7 +27,7 @@ public class FileController {
         }
     }
 
-    public static boolean createNewBuildProps(String dataDir, String newDensity) {
+    public static boolean createNewBuildProps(String dataDir, int newDensity) {
         try {
             // TODO: we don't really need to read twice
             String buildProperties = Files.convertFileToString(PathHelper.PATH_BUILD_PROP);
