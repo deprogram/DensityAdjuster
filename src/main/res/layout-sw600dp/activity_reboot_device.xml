@@ -6,6 +6,24 @@
     tools:context="com.oumugai.densityadjuster.RebootDeviceActivity"
     android:background="@color/default_background">
 
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:src="@drawable/spiral_background"
+            android:adjustViewBounds="true"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="false"
+            android:scaleType="fitEnd"
+            android:alpha=".7"
+            android:layout_alignParentTop="false"
+            android:layout_alignParentBottom="true" />
+        </RelativeLayout>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="400dp"
@@ -29,13 +47,14 @@
             android:paddingTop="25dp" />
 
         <Button
+            style="@style/ActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Reboot Now"
+            android:text="Just a sec..."
+            android:enabled="false"
             android:id="@+id/buttonReboot"
-            android:layout_marginTop="35dp"
-            android:textStyle="bold" />
+            android:layout_marginTop="35dp" />
     </LinearLayout>
 
 </RelativeLayout>

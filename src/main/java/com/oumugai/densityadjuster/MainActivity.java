@@ -3,6 +3,7 @@ package com.oumugai.densityadjuster;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -62,22 +63,31 @@ public class MainActivity extends Activity {
             saveCurrentDensity.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    saveCurrentDensity.setEnabled(false);
+
+                    // TODO this should be properly async and tell us when it's done
                     persistCurrentDensity(getCurrentDensity());
 
-                    final String persistedDensity = SystemLayer.getDensityFromBuildProps();
-                    if (persistedDensity != null) {
-                        TextView tv = (TextView)findViewById(R.id.textSavedDensity);
-                        tv.setText(persistedDensity);
-                    }
+                    new Handler().postDelayed(new Runnable() {
+                        public void run() {
+                            final String persistedDensity = SystemLayer.getDensityFromBuildProps();
+                            if (persistedDensity != null) {
+                                TextView tv = (TextView) findViewById(R.id.textSavedDensity);
+                                tv.setText(persistedDensity);
+                            }
 
-                    // quick sanity check
-                    if (String.valueOf(getCurrentDensity()).equals(persistedDensity)) {
-                        saveCurrentDensity.setVisibility(View.GONE);
-                    } else {
-                        Toast.makeText(getApplicationContext(),
-                                "Something went wrong persisting density! Please try again.",
-                                Toast.LENGTH_LONG).show();
-                    }
+                            // quick sanity check
+                            if (String.valueOf(getCurrentDensity()).equals(persistedDensity)) {
+                                saveCurrentDensity.setVisibility(View.GONE);
+                            } else {
+                                Toast.makeText(getApplicationContext(),
+                                        "Something went wrong persisting density! Please try again.",
+                                        Toast.LENGTH_LONG).show();
+                            }
+
+                            saveCurrentDensity.setEnabled(true);
+                        }
+                    }, 2500);
                 }
             });
         }

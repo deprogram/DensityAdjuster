@@ -56,11 +56,7 @@ public class SystemLayer {
     }
 
     public static void rebootNow() {
-        try {
-            Runtime.getRuntime().exec(new String[]{PathHelper.PATH_SU_BINARY, "-c", "reboot now"});
-        } catch (IOException e) {
-            Log.e(TAG, "rebootNow() failed: " + e, e);
-        }
+        executeCommandAsSuperUser("reboot now");
     }
 
     public static boolean hasSuperUser() {

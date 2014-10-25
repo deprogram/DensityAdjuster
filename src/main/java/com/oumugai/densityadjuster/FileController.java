@@ -99,13 +99,11 @@ public class FileController {
         SystemLayer.executeCommandAsSuperUser(moveExistingRecoveryScript);
 
         String copyRestoreScriptCommand = "cp " + PathHelper.buildRestoreRecoveryScriptSourcePath(dataDir) + " " + PathHelper.PATH_RESTORE_SCRIPT;
-        SystemLayer.executeCommandAsSuperUser(copyRestoreScriptCommand);
-        SystemLayer.executeCommandAsSuperUser("chmod 755 " + PathHelper.PATH_RESTORE_SCRIPT);
+        SystemLayer.executeCommandAsSuperUser(copyRestoreScriptCommand + "; chmod 755 " + PathHelper.PATH_RESTORE_SCRIPT);
     }
     private static void copyRestoreScriptIntoInitD(String dataDir) {
         String copyRestoreScriptCommand = "cp " + PathHelper.buildRestoreInitScriptSourcePath(dataDir) + " " + PathHelper.PATH_RESTORE_INIT_SCRIPT;
-        SystemLayer.executeCommandAsSuperUser(copyRestoreScriptCommand);
-        SystemLayer.executeCommandAsSuperUser("chmod 755 " + PathHelper.PATH_RESTORE_INIT_SCRIPT);
+        SystemLayer.executeCommandAsSuperUser(copyRestoreScriptCommand + "; chmod 755 " + PathHelper.PATH_RESTORE_INIT_SCRIPT);
     }
 
     public static void copyNewBuildPropsIntoSystem(String dataDir) {
@@ -113,11 +111,8 @@ public class FileController {
         SystemLayer.executeCommandAsSuperUser(moveExistingPropsToBackupFileCommand);
 
         String copyNewBuildPropCommand = "cp " + PathHelper.buildNewPropertiesPath(dataDir) + " " + PathHelper.PATH_BUILD_PROP;
-        SystemLayer.executeCommandAsSuperUser(copyNewBuildPropCommand);
-
-        SystemLayer.executeCommandAsSuperUser("chmod 644 " + PathHelper.PATH_BUILD_PROP);
+        SystemLayer.executeCommandAsSuperUser(copyNewBuildPropCommand + "; chmod 644 " + PathHelper.PATH_BUILD_PROP);
     }
-
 
     public static void copyRecoveryScript(String dataDir) {
         if (SystemLayer.hasInitDSupport()) {
@@ -126,6 +121,4 @@ public class FileController {
             copyRecoveryScriptIntoEtc(dataDir);
         }
     }
-
-
 }

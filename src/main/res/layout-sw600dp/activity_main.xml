@@ -11,6 +11,19 @@
 
         <ImageView
             android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:src="@drawable/spiral_background"
+            android:adjustViewBounds="true"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="false"
+            android:scaleType="fitEnd"
+            android:alpha=".7"
+            android:layout_alignParentTop="false"
+            android:layout_alignParentBottom="true" />
+
+        <ImageView
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/imageArrows"
             android:src="@drawable/arrows"
@@ -43,6 +56,7 @@
             android:layout_marginBottom="62dp"
             android:textStyle="bold"
             android:textColor="#fff" />
+
     </RelativeLayout>
 
     <LinearLayout
@@ -53,19 +67,10 @@
         android:layout_centerHorizontal="true">
 
         <TextView
+            style="@style/DensityHeader"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/current_density"
-            android:background="#222"
-            android:textColor="#fff"
-            android:layout_marginBottom="-55dp"
-            android:paddingLeft="10dp"
-            android:paddingTop="5dp"
-            android:paddingRight="5dp"
-            android:paddingBottom="5dp"
-            android:autoText="true"
-            android:alpha=".5" />
+            android:text="@string/current_density" />
 
         <TextView
             android:layout_width="fill_parent"
@@ -77,20 +82,13 @@
             android:gravity="right"
             android:textStyle="bold"
             android:textColor="#fff"
-            android:alpha=".7" />
+            android:layout_marginTop="-75dp" />
 
         <TextView
+            style="@style/DensityHeader"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Saved Density:"
-            android:background="#222"
-            android:textColor="#fff"
-            android:paddingLeft="10dp"
-            android:paddingTop="5dp"
-            android:paddingRight="5dp"
-            android:paddingBottom="5dp"
-            android:alpha=".5" />
+            android:text="@string/saved_density" />
 
         <TextView
             android:layout_width="fill_parent"
@@ -101,25 +99,25 @@
             android:textSize="75sp"
             android:gravity="right"
             android:textStyle="bold"
-            android:layout_marginTop="-25dp"
+            android:layout_marginTop="-50dp"
             android:textColor="#fff"
             android:layout_marginBottom="25dp" />
 
 
         <Button
+            style="@style/ActionButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Save Current Density"
             android:id="@+id/buttonPersistExistingDensity"
-            android:textStyle="bold"
             android:visibility="gone" />
 
         <Button
+            style="@style/ActionButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Try A New Density"
-            android:id="@+id/buttonTryNewDensity"
-            android:textStyle="bold" />
+            android:id="@+id/buttonTryNewDensity" />
 
 
     </LinearLayout>

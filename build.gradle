@@ -6,15 +6,16 @@ android {
 
     defaultConfig {
         applicationId "com.oumugai.densityadjuster"
-        minSdkVersion 13
+        minSdkVersion 14
         targetSdkVersion 20
-        versionCode 4
-        versionName "0.06"
+        versionCode 5
+        versionName "0.07"
     }
     buildTypes {
         release {
-            runProguard false
+            runProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            zipAlign true
         }
     }
 }

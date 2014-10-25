@@ -5,4 +5,20 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="ActionButton" parent="android:Widget.Holo.Light.Button">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+
+    <style name="DensityHeader" parent="android:TextAppearance.Holo.Medium">
+        <item name="android:background">@drawable/horiz_gradient</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:alpha">.5</item>
+    </style>
+
 </resources>

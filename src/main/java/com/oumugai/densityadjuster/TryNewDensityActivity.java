@@ -45,7 +45,10 @@ public class TryNewDensityActivity extends Activity {
                     Toast.makeText(getApplicationContext(), "Please enter an integer between " + MINIMUM_DENSITY + " and " + MAXIUMUM_DENSITY, Toast.LENGTH_LONG).show();
                     return;
                 }
+
                 view.setEnabled(false);
+                findViewById(R.id.textTestInstructions).setVisibility(View.GONE);
+
                 tryNewDensity(Integer.valueOf(newDensity));
             }
         });
