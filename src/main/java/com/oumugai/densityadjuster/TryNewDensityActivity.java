@@ -17,8 +17,8 @@ import java.io.File;
 
 public class TryNewDensityActivity extends Activity {
     private static final String TAG = "TryNewDensityActivity";
-    private static final Integer MINIMUM_DENSITY = 50;
-    private static final Integer MAXIUMUM_DENSITY = 500;
+    private static final Integer MINIMUM_DENSITY = 90;
+    private static final Integer MAXIUMUM_DENSITY = 720;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
